@@ -459,6 +459,7 @@ void OLED_GPIO_Init()
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 
 	GPIO_Init(OLED_GPIOx(OLED_DC_PORT_NUMBER), &GPIO_InitStructure);
 
@@ -564,7 +565,7 @@ void OLEDClass::print(uint8_t x, uint8_t y, char* str, CharMode mode)
 
 void OLEDClass::print(uint8_t x, uint8_t y, int num, CharMode mode)
 {
-	char str[20];
+	char str[10];
 	sprintf(str, "%d", num);
 	print(x, y, str, mode);
 }
@@ -576,7 +577,8 @@ void OLEDClass::print(uint8_t x, uint8_t y, long num, CharMode mode)
 	print(x, y, str, mode);
 }
 
-void OLEDClass::print(uint8_t x, uint8_t y, float f, uint8_t ndigit, CharMode mode)
+void OLEDClass::print(uint8_t x, uint8_t y, float f, uint8_t ndigit,
+		CharMode mode)
 {
 	char str[20];
 	char format[6] = "%.0f";
@@ -585,7 +587,8 @@ void OLEDClass::print(uint8_t x, uint8_t y, float f, uint8_t ndigit, CharMode mo
 	print(x, y, str, mode);
 }
 
-void OLEDClass::print(uint8_t x, uint8_t y, double lf, uint8_t ndigit, CharMode mode)
+void OLEDClass::print(uint8_t x, uint8_t y, double lf, uint8_t ndigit,
+		CharMode mode)
 {
 	char str[20];
 	char format[6] = "%.0lf";
