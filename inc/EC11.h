@@ -1,14 +1,14 @@
 /*
  * EC11.h
  *
- *  Created on: 2016Äê6ÔÂ28ÈÕ
+ *  Created on: 2016ï¿½ï¿½6ï¿½ï¿½28ï¿½ï¿½
  *      Author: Romeli
  */
 
 #ifndef EC11_H_
 #define EC11_H_
 
-#include "stm32f0xx.h"
+#include "cmsis_device.h"
 
 void EC11_Init();
 void EC11_RCC_Config();

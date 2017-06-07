@@ -1,7 +1,7 @@
 /*
  * OLED.h
  *
- *  Created on: 2016Äê5ÔÂ22ÈÕ
+ *  Created on: 2016ï¿½ï¿½5ï¿½ï¿½22ï¿½ï¿½
  *      Author: Romeli
  *  Depend on: "Delay.h" & "SPI.h"
  */
@@ -9,7 +9,8 @@
 #ifndef OLED_H_
 #define OLED_H_
 
-#include "stm32f0xx.h"
+#include "cmsis_device.h"
+#include "Parse.h"
 
 //#define I2C_Intface
 #define SPI_Intface
@@ -21,9 +22,11 @@
 
 // Port numbers: 0=A, 1=B, 2=C, 3=D, 4=E, 5=F, 6=G, ...
 #define OLED_DC_PORT_NUMBER               (0)
-#define OLED_DC_PIN_NUMBER                (9)
-#define OLED_RESET_PORT_NUMBER            (1)
-#define OLED_RESET_PIN_NUMBER             (1)
+#define OLED_DC_PIN_NUMBER                (4)
+#define OLED_RESET_PORT_NUMBER            (0)
+#define OLED_RESET_PIN_NUMBER             (6)
+#define OLED_CS_PORT_NUMBER            (0)
+#define OLED_CS_PIN_NUMBER             (3)
 
 #define OLED_GPIOx(_N)                 ((GPIO_TypeDef *)(GPIOA_BASE + (GPIOB_BASE-GPIOA_BASE)*(_N)))
 #define OLED_PIN_MASK(_N)              (1 << (_N))
@@ -32,33 +35,65 @@
 void OLED_GPIO_Init();
 #endif
 
-typedef enum
-{
+typedef enum _WriteMode_Typedef {
 	Cmd_Mode = 0, Data_Mode = 1
-} WriteMode;
+} WriteMode_Typedef;
 
-typedef enum
-{
+typedef enum _CharMode_Typedef {
 	C6x8 = 6, C8x16 = 8, C16x16 = 16
-} CharMode;
+} CharMode_Typedef;
 
-class OLEDClass
-{
+typedef enum _AlignTypedef {
+	Align_Left, Align_Right
+} AlignTypedef;
+
+class OLED: Parse {
 public:
+	static void Init();
+	static void Write(uint8_t data, WriteMode_Typedef mode);
+	static void SetPos(uint8_t x, uint8_t y);
+	static void Fill(uint8_t bmp);
+	static void print_c(uint8_t x, uint8_t y, uint8_t c, CharMode_Typedef mode);
+	static void print(uint8_t x, uint8_t y, uint8_t *str,
+			CharMode_Typedef mode);
+	static inline void print(uint8_t x, uint8_t y, int8_t *str,
+			CharMode_Typedef mode) {
+		print(x, y, (uint8_t *) str, mode);
+	}
+	static inline void print(uint8_t x, uint8_t y, const char *str,
+			CharMode_Typedef mode) {
+		print(x, y, (uint8_t *) str, mode);
+	}
 
-	void init();
-	void write(uint8_t data, WriteMode mode);
-	void set_pos(uint8_t x, uint8_t y);
-	void fill(uint8_t bmp);
-	void print_c(uint8_t x, uint8_t y, char data, CharMode mode);
-	void print(uint8_t x, uint8_t y, char *str, CharMode mode);
-	void print(uint8_t x, uint8_t y, int num, CharMode mode);
-	void print(uint8_t x, uint8_t y, long num, CharMode mode);
-	void print(uint8_t x, uint8_t y, float f, uint8_t ndigit,
-			CharMode mode);
+	static void print(uint8_t x, uint8_t y, int32_t num, CharMode_Typedef mode);
+
+	static inline void print(uint8_t x, uint8_t y, uint32_t num,
+			CharMode_Typedef mode) {
+		print(x, y, (int32_t) num, mode);
+	}
+	static inline void print(uint8_t x, uint8_t y, uint16_t num,
+			CharMode_Typedef mode) {
+		print(x, y, (int32_t) num, mode);
+	}
+	static inline void print(uint8_t x, uint8_t y, uint8_t num,
+			CharMode_Typedef mode) {
+		print(x, y, (int32_t) num, mode);
+	}
+	static inline void print(uint8_t x, uint8_t y, int16_t num,
+			CharMode_Typedef mode) {
+		print(x, y, (int32_t) num, mode);
+	}
+	static inline void print(uint8_t x, uint8_t y, int8_t num,
+			CharMode_Typedef mode) {
+		print(x, y, (int32_t) num, mode);
+	}
+
+	static void print(uint8_t x, uint8_t y, float f, uint8_t ndigit,
+			CharMode_Typedef mode);
 	void print(uint8_t x, uint8_t y, double lf, uint8_t ndigit,
-			CharMode mode);
+			CharMode_Typedef mode);
+private:
+	static void GPIOInit();
 };
 
-extern OLEDClass OLED;
 #endif /* OLED_H_ */
