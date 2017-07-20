@@ -10,11 +10,16 @@
 
 #include "cmsis_device.h"
 
-void EC11_Init();
-void EC11_RCC_Config();
-void EC11_GPIO_Config();
-void EC11_EXTI_Config();
-void EC11_NVIC_Config();
+class EC11{
+public:
+	static uint8_t WiseFlag;
+	static void Init();
+private:
+	static void GPIOInit();
+	static void EXTIInit();
+	static void NVICInit();
+};
+
 extern void EC11_Key_Click();
 extern void EC11_Key_Press();
 extern void EC11_Clockwise();

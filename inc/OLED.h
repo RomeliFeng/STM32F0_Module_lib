@@ -53,45 +53,47 @@ public:
 	static void Write(uint8_t data, WriteMode_Typedef mode);
 	static void SetPos(uint8_t x, uint8_t y);
 	static void Fill(uint8_t bmp);
-	static void print_c(uint8_t x, uint8_t y, uint8_t c, CharMode_Typedef mode);
+	static void print_c(uint8_t x, uint8_t y, uint8_t c, CharMode_Typedef mode =
+			C6x8);
 	static void print(uint8_t x, uint8_t y, uint8_t *str,
-			CharMode_Typedef mode);
+			CharMode_Typedef mode = C6x8);
 	static inline void print(uint8_t x, uint8_t y, int8_t *str,
-			CharMode_Typedef mode) {
+			CharMode_Typedef mode = C6x8) {
 		print(x, y, (uint8_t *) str, mode);
 	}
 	static inline void print(uint8_t x, uint8_t y, const char *str,
-			CharMode_Typedef mode) {
+			CharMode_Typedef mode = C6x8) {
 		print(x, y, (uint8_t *) str, mode);
 	}
 
-	static void print(uint8_t x, uint8_t y, int32_t num, CharMode_Typedef mode);
+	static void print(uint8_t x, uint8_t y, int32_t num, CharMode_Typedef mode =
+			C6x8);
 
 	static inline void print(uint8_t x, uint8_t y, uint32_t num,
-			CharMode_Typedef mode) {
+			CharMode_Typedef mode = C6x8) {
 		print(x, y, (int32_t) num, mode);
 	}
 	static inline void print(uint8_t x, uint8_t y, uint16_t num,
-			CharMode_Typedef mode) {
+			CharMode_Typedef mode = C6x8) {
 		print(x, y, (int32_t) num, mode);
 	}
 	static inline void print(uint8_t x, uint8_t y, uint8_t num,
-			CharMode_Typedef mode) {
+			CharMode_Typedef mode = C6x8) {
 		print(x, y, (int32_t) num, mode);
 	}
 	static inline void print(uint8_t x, uint8_t y, int16_t num,
-			CharMode_Typedef mode) {
+			CharMode_Typedef mode = C6x8) {
 		print(x, y, (int32_t) num, mode);
 	}
 	static inline void print(uint8_t x, uint8_t y, int8_t num,
-			CharMode_Typedef mode) {
+			CharMode_Typedef mode = C6x8) {
 		print(x, y, (int32_t) num, mode);
 	}
 
 	static void print(uint8_t x, uint8_t y, float f, uint8_t ndigit,
-			CharMode_Typedef mode);
+			CharMode_Typedef mode = C6x8);
 	void print(uint8_t x, uint8_t y, double lf, uint8_t ndigit,
-			CharMode_Typedef mode);
+			CharMode_Typedef mode = C6x8);
 private:
 	static void GPIOInit();
 };
